@@ -11,6 +11,14 @@ app.options("http://localhost:3000", cors())
 app.use(express.static("public"))
 app.use(bodyParser.json())
 
+// this doesnt have to match
+app.get('/', (req, res) => {
+  res.send('hit the home route!')
+})
+
+
+
+
 app.post("/", cors(), async (req,res)=>{
 
   const getSearchResultsParameters = {
@@ -41,10 +49,7 @@ app.post("/", cors(), async (req,res)=>{
 
 
 
-  app.get('/api/v1/hello', (req,res)=>{
-    res.json('world')
-  })
-
+  
 
   app.listen(8000, ()=>{
     console.log(`running on port ${8000}`)
