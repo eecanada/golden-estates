@@ -1,13 +1,17 @@
-import React from 'react';
+import React, {Component} from 'react';
 import HomeContainer from './HomeContainer'
 import './App.css';
 
-function App() {
-  return (
-    <div >
-      <HomeContainer/>
-    </div>
-  );
-}
 
+class App extends Component {
+  render () {
+    return( 
+      <div >
+        {
+          <HomeContainer />
+        }
+      </div>
+    );
+    }
+  }
 export default App;

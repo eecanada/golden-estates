@@ -1,12 +1,12 @@
-import React, {Component} from 'react'
+import React, {Component} from "react"
+import DisplayHome from "../DisplayHome"
 
 class HomeContainer extends Component{
   state = {
-    home : [],
-    street: "",
-    city: "",
-    state: "",
-    zipid: ""
+    home: null,
+    address: "",
+    citystatezip: "",
+    rentzestimate: false,
   }
 
 handleChange = (e) => {
@@ -15,6 +15,9 @@ handleChange = (e) => {
   })
   console.log(this.state)
 }
+
+
+
 
 handleSubmit = async (e) => {
   console.log('hit')
@@ -27,13 +30,11 @@ handleSubmit = async (e) => {
         "Content-Type": "application/json" 
       }
     })
-    console.log(zillowResponse, "response")
     const parsedResponse = await zillowResponse.json()
     console.log(parsedResponse, "parsedResponse")
     this.setState({
-      house: parsedResponse.data
+      home: parsedResponse.data.address
     })
-    console.log(this.state)
   } catch (err) {
     console.log(err)
   }
@@ -43,11 +44,18 @@ render(){
   return(
     <div>
       <form onSubmit={this.handleSubmit}>
-        <input type="text" name="street" onChange={this.handleChange}/>
-        <input type="text" name="city" onChange={this.handleChange}/>
-        <input type="text" name="state" onChange={this.handleChange}/>
+        <input type="text" name="address" onChange={this.handleChange}/>
+        <input type="text" name="citystatezip" onChange={this.handleChange}/>
+        <input type="text" name="rentzestimate" onChange={this.handleChange}/>
         <input type="submit" value="Submit"/>
       </form>
+      {
+        this.state.home
+          ?
+            <DisplayHome home={this.state.home} />
+          :
+            <div>..loading</div>
+      }
     </div>
   )
 }

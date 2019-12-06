@@ -11,18 +11,39 @@ app.options("http://localhost:3000", cors())
 app.use(express.static("public"))
 app.use(bodyParser.json())
 
-app.post("/", cors(), (req,res)=>{
-  console.log(req.body, "req.body is here")
-  const parameters = {
-    zpid:req.body.zpid
-  }
-  console.log(parameters)
-  zillow.get('GetUpdatedPropertyDetails', parameters)
-    .then(results =>{
-      console.log(results)
-      res.json({data: results.response})
-    })
+app.post("/", cors(), async (req,res)=>{
+
+  const getSearchResultsParameters = {
+    address: req.body.address,
+    citystatezip: req.body.citystatezip,
+    rentzestimate: req.body.rentzestimate
+  } 
+
+  const zpid = await zillow.get("GetSearchResults", getSearchResultsParameters ).then(results => {
+    return results.response.results.result[0].zpid[0]
   })
+
+  const getUpdatedPropertyparameters = {
+   zpid:zpid
+  }
+
+  console.log(getUpdatedPropertyparameters)
+  await zillow.get('GetUpdatedPropertyDetails', getUpdatedPropertyparameters)
+     .then(results => {
+       if(results.message.code === '0'){
+        res.json({data: results.response})
+       } else {
+         res.json({data: {}, status: {message: "REQUEST UNSUCCESSFUL", code: 400}})
+       }
+     })
+  // console.log(req.body, "req.body is here")
+  
+
+  // console.log(parameters)
+  })
+
+
+
 
   app.listen(8000, ()=>{
     console.log(`running on port ${8000}`)
