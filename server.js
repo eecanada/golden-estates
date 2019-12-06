@@ -39,6 +39,13 @@ app.post("/", cors(), async (req,res)=>{
      })
   })
 
+
+
+  app.get('/api/v1/hello', (req,res)=>{
+    res.json('world')
+  })
+
+
   app.listen(8000, ()=>{
     console.log(`running on port ${8000}`)
   })
