@@ -1,23 +1,14 @@
 import React from 'react'
 
 function DisplayHome (props){
+  console.log(props, 'this is props')
   return(
     <div>
-      <h1>{props.home.city}</h1>
+      <h1> address: </h1>
+      <h3>{props.home.address.street}</h3>
+      <h3>{props.home.address.city}</h3> - <br/>
+      <img src={props.home.images.image[0].url} />
     </div>
   )
 }
 export default DisplayHome
-
-
-
-
- // const homeList = props.homes.map((home, i)=>{
-  //   return(
-  //     <div key={i}> 
-  //     <h1>  address: {home.city[0]}</h1> 
-  //     <h1>  {home.street[0]} </h1>
-  //     </div>
-  //   )
-  // })
-  // console.log(props.homes.city[0], 'hellooooo')

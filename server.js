@@ -31,19 +31,13 @@ app.post("/", cors(), async (req,res)=>{
   await zillow.get('GetUpdatedPropertyDetails', getUpdatedPropertyparameters)
      .then(results => {
        if(results.message.code === '0'){
+         
         res.json({data: results.response})
        } else {
          res.json({data: {}, status: {message: "REQUEST UNSUCCESSFUL", code: 400}})
        }
      })
-  // console.log(req.body, "req.body is here")
-  
-
-  // console.log(parameters)
   })
-
-
-
 
   app.listen(8000, ()=>{
     console.log(`running on port ${8000}`)

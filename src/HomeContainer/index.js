@@ -7,16 +7,14 @@ class HomeContainer extends Component{
     address: "",
     citystatezip: "",
     rentzestimate: false,
+
   }
 
 handleChange = (e) => {
   this.setState({
     [e.currentTarget.name]: e.currentTarget.value
   })
-  console.log(this.state)
 }
-
-
 
 
 handleSubmit = async (e) => {
@@ -31,9 +29,10 @@ handleSubmit = async (e) => {
       }
     })
     const parsedResponse = await zillowResponse.json()
-    console.log(parsedResponse, "parsedResponse")
+    console.log(parsedResponse.data.images.image[0].url, "parsedResponse")
+    console.log(parsedResponse)
     this.setState({
-      home: parsedResponse.data.address
+      home: parsedResponse.data
     })
   } catch (err) {
     console.log(err)
@@ -41,6 +40,7 @@ handleSubmit = async (e) => {
 }
 
 render(){
+  console.log(this.state)
   return(
     <div>
       <form onSubmit={this.handleSubmit}>
@@ -49,12 +49,15 @@ render(){
         <input type="text" name="rentzestimate" onChange={this.handleChange}/>
         <input type="submit" value="Submit"/>
       </form>
+      
       {
         this.state.home
           ?
-            <DisplayHome home={this.state.home} />
+            <div>
+              <DisplayHome home={this.state.home} />
+            </div>
           :
-            <div>..loading</div>
+            <div> loading </div>
       }
     </div>
   )
