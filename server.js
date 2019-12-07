@@ -17,8 +17,6 @@ app.get('/', (req, res) => {
 })
 
 
-
-
 app.post("/", cors(), async (req,res)=>{
 
   const getSearchResultsParameters = {
