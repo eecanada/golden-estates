@@ -16,4 +16,15 @@ router.post('/', async  (req, res) => {
   };
 });
 
+
+router.get('/', async (req,res)=>{
+  try{
+    const allHomes = await Home.find({})
+    res.json(allHomes)
+  } catch(err){
+    res.send(err);
+  }
+});
+
+
 module.exports = router
