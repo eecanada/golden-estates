@@ -6,6 +6,7 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 
 
+const usersController = require('./controllers/users')
 // using process.env.PORT is when I deploy my app online ti will check to use if the is any environmental variable called PORT and if there isnt then it will go to PORT 8000
 const PORT = process.env.PORT || 8000
 
@@ -15,9 +16,11 @@ require('./database/database')
 app.use(cors());
 app.options("http://localhost:3000", cors())
 app.use(express.static("public"))
+app.use(express.json())
 
 // taking json that is sent from the client,to the server and it is going to parse it 
 app.use(bodyParser.json())
+
 
 // this doesnt have to match
 app.get('/', (req, res) => {
@@ -54,7 +57,7 @@ app.post("/", cors(), async (req,res)=>{
   })
 
   // setting up my user route
-  const usersController = require('./controllers/users')
+ 
   // // telling express app to use this route 
   app.use('/users',usersController)
 

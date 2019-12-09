@@ -10,6 +10,10 @@ const userSchema = new Schema({
   password: {type: String, require: true}
 })
 
+
+// creating my model and calling it User
 const User = mongoose.model('User',userSchema)
 
-module.export = User 
+
+// exporting my model
+module.exports = User 
