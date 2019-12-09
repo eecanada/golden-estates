@@ -5,7 +5,11 @@ const app = express()
 const bodyParser = require("body-parser")
 const cors = require("cors")
 
+
+// using process.env.PORT is when I deploy my app online ti will check to use if the is any environmental variable called PORT and if there isnt then it will go to PORT 8000
 const PORT = process.env.PORT || 8000
+
+require('./database/database')
 
 //middleware
 app.use(cors());
