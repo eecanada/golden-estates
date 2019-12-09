@@ -5,6 +5,8 @@ const app = express()
 const bodyParser = require("body-parser")
 const cors = require("cors")
 
+const PORT = process.env.PORT || 8000
+
 //middleware
 app.use(cors());
 app.options("http://localhost:3000", cors())
@@ -49,9 +51,9 @@ app.post("/", cors(), async (req,res)=>{
 
   // setting up my user route
   const usersController = require('./controllers/users')
-  // telling express app to use this route 
+  // // telling express app to use this route 
   app.use('/users',usersController)
 
-  app.listen(8000, ()=>{
-    console.log(`running on port ${8000}`)
+  app.listen(PORT, ()=>{
+    console.log(`running on port ${PORT}`)
   })
