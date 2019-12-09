@@ -7,7 +7,11 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   username: {type: String, require: true},
   email: {type: String, require: true},
-  password: {type: String, require: true}
+  password: {type: String, require: true},
+  homes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Home'
+  }]
 })
 
 

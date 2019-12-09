@@ -7,7 +7,7 @@ const cors = require("cors")
 
 
 const usersController = require('./controllers/users')
-const homesConroller = require('./controllers/homes')
+const homesController = require('./controllers/homes')
 // using process.env.PORT is when I deploy my app online ti will check to use if the is any environmental variable called PORT and if there isnt then it will go to PORT 8000
 const PORT = process.env.PORT || 8000
 
@@ -61,7 +61,7 @@ app.post("/", cors(), async (req,res)=>{
  
   // // telling express app to use this route 
   app.use('/users',usersController)
-  app.use('/homes',homesConroller)
+  app.use('/homes',homesController)
 
   app.listen(PORT, ()=>{
     console.log(`running on port ${PORT}`)
