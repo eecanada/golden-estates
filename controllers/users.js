@@ -25,8 +25,8 @@ router.post('/', async  (req, res) => {
     console.log(req.body)
     const createdUser = await User.create(req.body)
     res.json(createdUser)
-  } catch (error){
-    console.log(error)
+  } catch (err){
+    res.send(err)
   };
 });
 
@@ -35,13 +35,20 @@ router.post('/', async  (req, res) => {
 router.delete('/:id', async (req,res)=>{
   try{
     const deletedUser = await User.findByIdAndRemove(req.params.id)
-    res.redirect('/')
-    res.send('user is deleted')
+    res.json(deletedUser)
   } catch (err){
     res.send(err)
   }
 })
 
+router.put('/:id', async (req,res)=>{
+  try{
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new:true});
+    res.json(updatedUser)
+  } catch (err){
+    res.send(err)
+  }
+})
 
 
 module.exports = router
