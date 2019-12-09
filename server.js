@@ -9,6 +9,8 @@ const cors = require("cors")
 app.use(cors());
 app.options("http://localhost:3000", cors())
 app.use(express.static("public"))
+
+// taking json that is sent from the client,to the server and it is going to parse it 
 app.use(bodyParser.json())
 
 // this doesnt have to match
@@ -45,9 +47,10 @@ app.post("/", cors(), async (req,res)=>{
      })
   })
 
-
-
-  
+  // setting up my user route
+  const usersController = require('./controllers/users')
+  // telling express app to use this route 
+  app.use('/users',usersController)
 
   app.listen(8000, ()=>{
     console.log(`running on port ${8000}`)
