@@ -10,9 +10,14 @@ const User = require('../models/users')
 // http://localhost:8000/users   <-- this is coming from app.use('/users',usersController) on server.js
 
 // Get a single user
-// router.get('/:id', async (req,res)=>{
-
-// })
+router.get('/:id', async (req,res)=>{
+  try{
+    const foundUser = await User.findById(req.params.id)
+    res.json(foundUser)
+  } catch (err){
+    res.send(err)
+  }
+})
 
 // create a user 
 router.post('/', async  (req, res) => {
@@ -26,5 +31,6 @@ router.post('/', async  (req, res) => {
 });
 
 
-// 
+// delete a user 
+
 module.exports = router
