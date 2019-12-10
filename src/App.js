@@ -19,9 +19,8 @@ class App extends Component {
         
         <Switch>
           <Route exact path={ROUTES.HOME} component= {HomePage}/> 
-          <HomeContainer />
-          <HomePage />
-          <RegisterForm />
+          <Route exact path={ROUTES.SEARCH} component={HomeContainer} />
+          <Route  exact path={ROUTES.SIGN_UP} component={RegisterForm}/>
           
         </Switch>
 

@@ -96,4 +96,47 @@ router.post("/register", async (req, res) => {
     }
 })
 
+
+//login route 
+router.post("/login", async (req, res) => {
+  try{
+      const foundUsername = await User.findOne({
+          username: req.body.loginUsername
+      })
+      if(foundUsername){
+          if(bcrypt.compareSync(req.body.loginPassword, foundUsername.password)){
+              req.session.firstName = foundUsername.firstName
+              req.session.email = foundUsername.email
+              req.session.username = foundUsername.username
+              req.session.userId = foundUsername._id
+              const userFavorites = await Promise.all(foundUsername.favorites.map((favorite) => {
+                  let foundFavorite = Favorite.findById(favorite)
+                  return foundFavorite
+              }))                
+              res.json({ 
+                  firstName: req.session.firstName,
+                  email: req.session.email,
+                  username: req.session.username,
+                  userId: req.session.userId,
+                  favorites: userFavorites
+              })
+          }
+          else {
+              res.json({
+                  message: "Incorrect username or password."
+              })
+          }
+      }
+      else{
+          res.json({
+              message: "Incorrect username or password."
+          })
+      }
+  }
+  catch(err){
+      res.send(err)
+      console.log(err)
+  }
+})
+
 module.exports = router
