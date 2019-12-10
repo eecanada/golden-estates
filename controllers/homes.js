@@ -39,4 +39,18 @@ router.put('/:id', async (req,res)=>{
   }
 })
 
+
+// this will let me select a user's home
+router.get('/:id', async (req,res)=>{
+  try{
+    const foundUser = await User.findOne({'homes': req.params.id})
+    .populate({path: 'homes', match:{_id: req.params.id}})
+    console.log(foundUser)
+    res.json(foundUser)
+  } catch(err){
+    res.send(err)
+  }
+})
+
+
 module.exports = router
