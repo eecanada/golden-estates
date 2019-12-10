@@ -9,17 +9,15 @@ const style={
     "backgroundRepeat": "no-repeat",
     "backgroundSize": "cover",
     "backgroundImage": `url(${splashimage})`,
-    'opacity' : '0.5',
-    'filter': 'alpha(opacity=50)',
-  
-      
+    'opacity' : '0.9',
+    'filter': 'alpha(opacity=50)',     
 }
 
 const HomePage = () => {
     return(
         <div className='taglines' style={style}>
             <h3> Golden Estates </h3>
-            <button> Search </button>
+            <button> Find Your Dream Home </button>
         </div>
     )
 }

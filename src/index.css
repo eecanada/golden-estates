@@ -21,14 +21,14 @@ code {
   max-width: 55rem;
   display: flex;
   align-items: center;
-  margin: 10px auto;
+  margin: 20px auto;
 }
 
 .Nav-Left {
   width: 33.333%;
   text-align: left;
   /* margin-top: 10px; */
-  margin: 0 10px;
+  margin: -60px;
 }
 
 .Nav-Center {
@@ -44,6 +44,7 @@ code {
 .Nav a {
   text-decoration: none;
   color: black;
+  padding: 5px
 }
 
 .Nav a:hover {
