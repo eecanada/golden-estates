@@ -32,8 +32,8 @@ router.get('/', async (req,res)=>{
 // this will allow me to edit my home 
 router.put('/:id', async (req,res)=>{
   try{
-    const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body, {new:true});
-    res.redirect('/books')
+    const updatedHome = await Home.findByIdAndUpdate(req.params.id, req.body, {new:true});
+    res.json(updatedHome)
   } catch (err){
     res.send(err)
   }
