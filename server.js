@@ -6,6 +6,7 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 
 
+
 const usersController = require('./controllers/users')
 const homesController = require('./controllers/homes')
 // using process.env.PORT is when I deploy my app online ti will check to use if the is any environmental variable called PORT and if there isnt then it will go to PORT 8000
