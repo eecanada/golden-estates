@@ -64,12 +64,7 @@ app.post("/", cors(), async (req,res)=>{
      })
   })
 
-  // setting up my user route
-  app.get('/registration', (req,res)=>{
-    res.render()
-  })
- 
-
+  
 
   app.listen(PORT, ()=>{
     console.log(`running on port ${PORT}`)
