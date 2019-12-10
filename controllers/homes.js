@@ -52,7 +52,7 @@ router.get('/:id', async (req,res)=>{
   }
 })
 
-//
+// this will delete home
 router.delete('/:id', async (req,res)=>{
   try{
     const deletedHome = await Home.findByIdAndRemove(req.params.id)

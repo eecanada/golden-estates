@@ -17,7 +17,7 @@ class App extends Component {
         <NavBar/>
         
         <Switch>
-          <Route exact path={ROUTES.HOME} render={()=> <div>HOME BABY </div>} />
+          <Route exact path={ROUTES.HOME} component= {HomePage}/> 
           <HomeContainer />
           <HomePage />
         </Switch>
