@@ -8,7 +8,7 @@ import NavBar from './components/NavBar';
 import * as ROUTES from './constants/routes'
 
 import './App.css';
-import Register from './components/RegisterUser';
+import RegisterForm from './components/RegisterForm';
 
 
 class App extends Component {
@@ -21,7 +21,7 @@ class App extends Component {
           <Route exact path={ROUTES.HOME} component= {HomePage}/> 
           <HomeContainer />
           <HomePage />
-          <Register />
+          <RegisterForm />
           
         </Switch>
 
