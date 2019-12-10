@@ -9,6 +9,7 @@ import * as ROUTES from './constants/routes'
 
 import './App.css';
 import RegisterForm from './components/RegisterForm';
+import LoginForm from './components/LoginForm'
 
 
 class App extends Component {
@@ -21,7 +22,7 @@ class App extends Component {
           <Route exact path={ROUTES.HOME} component= {HomePage}/> 
           <Route exact path={ROUTES.SEARCH} component={HomeContainer} />
           <Route  exact path={ROUTES.SIGN_UP} component={RegisterForm}/>
-          
+          <Route exact path={ROUTES.LOGIN} component={LoginForm}/>
         </Switch>
 
       </div>

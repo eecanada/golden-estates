@@ -57,7 +57,7 @@ render(){
               <DisplayHome home={this.state.home} />
             </div>
           :
-            <div> loading </div>
+            <div> FIND YOUR DREAM HOME </div>
       }
     </div>
   )

@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
 
-class RegisterForm extends Component {
-    constructor() {
-        super();
+class LoginForm extends Component {
+    constructor(props) {
+        super(props);
 
         this.state = {
-            username: '',
             email: '',
             password: '',
-            
-        }
+            showError: null
+        };
+
     }
 
-    handleChange = (e) => {
-        this.setState({ [e.currentTarget.name]: e.currentTarget.value })
+
+    handleChange(field) {
+        return e => this.setState({
+            [field]: e.currentTarget.value
+        });
     }
 
     handleSubmit = async (e) => {
         e.preventDefault();
-        const registerResponse = await fetch('/register', {
+        const loginResponse = await fetch(`/login`, {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(this.state),
@@ -26,45 +29,44 @@ class RegisterForm extends Component {
                 'Content-Type': 'application/json'
             }
         });
-        const parsedResponse = await registerResponse.json();
-        if (parsedResponse.status.message === 'Success, user is registered') {
-            console.log('success login')
+        const parsedResponse = await loginResponse.json();
+        console.log(parsedResponse, " <- parsedResponse");
+        if (parsedResponse.message === 'user is logged in') {
             this.props.closeAndLogUser(parsedResponse.data)
+        } else {
+            this.setState({
+                showError: true
+            })
         }
     }
-    
+
+
     render() {
         return (
-            <div >
+            <div>
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <br />
-                        <input type="text"
-                            name="username"
-                            value={this.state.username}
-                            onChange={this.handleChange}
-                            placeholder="Username"
-                        />
-                        <br />
+                        <label htmlFor="email">Email</label>
                         <input type="text"
                             name="email"
                             value={this.state.email}
-                            onChange={this.handleChange}
+                            onChange={this.handleChange('email')}
                             placeholder="Email"
                         />
                         <br />
-                    
+                        <label htmlFor="password">Password</label>
                         <input type="password"
                             name="password"
                             value={this.state.password}
-                            onChange={this.handleChange}
+                            onChange={this.handleChange('password')}
                             placeholder="Password"
                         />
                         <br />
-                       
-                        <br />
                         <input type="submit" value="Submit" />
-                        
+                        {
+                            this.state.showError ? <h2>email or password is incorrect</h2> : null
+                        }
                     </div>
                 </form>
             </div>
@@ -72,4 +74,4 @@ class RegisterForm extends Component {
     }
 }
 
-export default RegisterForm;
+export default LoginForm;
