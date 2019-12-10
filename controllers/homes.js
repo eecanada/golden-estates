@@ -52,5 +52,18 @@ router.get('/:id', async (req,res)=>{
   }
 })
 
+//
+router.delete('/:id', async (req,res)=>{
+  try{
+    const deletedHome = await Home.findByIdAndRemove(req.params.id)
+    const foundUser = await User.findOne({'homes': req.params.id})
+    foundUser.homes.remove(deletedHome);
+    foundUser.save((err, updatedUser) => {
+      res.json(deletedHome)
+    })
+  } catch (err){
+    res.send(err)
+  }
+})
 
 module.exports = router
