@@ -42,6 +42,7 @@ router.delete('/:id', async (req,res)=>{
   }
 })
 
+// Edit route 
 router.put('/:id', async (req,res)=>{
   try{
     const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new:true});
@@ -50,6 +51,16 @@ router.put('/:id', async (req,res)=>{
     res.send(err)
   }
 })
+
+// // edit route 
+// router.get('/:id/edit', async (req,res)=>{
+//   try{
+//     const foundUser = await User.findById(req.params.id)
+//     res.json(foundUser)
+//   } catch (err){
+//     res.send(err)
+//   }
+// });
 
 
 
