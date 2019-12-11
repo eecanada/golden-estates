@@ -21,15 +21,15 @@ router.get('/:id', async (req,res)=>{
 })
 
 // create a user 
-router.post('/', async  (req, res) => {
-  try {
-    console.log(req.body)
-    const createdUser = await User.create(req.body)
-    res.json(createdUser)
-  } catch (err){
-    res.send(err)
-  };
-});
+// router.post('/', async  (req, res) => {
+//   try {
+//     console.log(req.body)
+//     const createdUser = await User.create(req.body)
+//     res.json(createdUser)
+//   } catch (err){
+//     res.send(err)
+//   };
+// });
 
 
 // delete a user 
@@ -54,6 +54,7 @@ router.put('/:id', async (req,res)=>{
 
 // registration route 
 router.post("/register", async (req, res) => {
+  console.log("hit it mike")
     try{
         const foundEmail = await User.findOne({
             email: req.body.email
@@ -105,37 +106,24 @@ router.post("/login", async (req, res) => {
       })
       if(foundUsername){
           if(bcrypt.compareSync(req.body.loginPassword, foundUsername.password)){
-              req.session.firstName = foundUsername.firstName
-              req.session.email = foundUsername.email
-              req.session.username = foundUsername.username
-              req.session.userId = foundUsername._id
-              const userFavorites = await Promise.all(foundUsername.favorites.map((favorite) => {
-                  let foundFavorite = Favorite.findById(favorite)
-                  return foundFavorite
-              }))                
-              res.json({ 
-                  firstName: req.session.firstName,
-                  email: req.session.email,
-                  username: req.session.username,
-                  userId: req.session.userId,
-                  favorites: userFavorites
-              })
-          }
-          else {
-              res.json({
-                  message: "Incorrect username or password."
-              })
-          }
-      }
-      else{
-          res.json({
-              message: "Incorrect username or password."
+            req.session.firstName = foundUsername.firstName
+            req.session.email = foundUsername.email
+            req.session.username = foundUsername.username
+          }      
+          res.json({ 
+            firstName: req.session.firstName,
+            email: req.session.email,
+            username: req.session.username,
           })
       }
-  }
-  catch(err){
-      res.send(err)
-      console.log(err)
+      else {
+        res.json({
+          message: "Incorrect username or password."
+        })
+      }
+  } catch(err){
+    res.send(err)
+    console.log(err)
   }
 })
 

@@ -15,7 +15,14 @@ const PORT = process.env.PORT || 8000
 require('./database/database')
 
 //middleware
-app.use(cors());
+
+//RESEARCH corsOptions!!!!
+const corsOptions = {
+  origin: ['http://localhost:3000'],
+  credentials: true,
+  optionsSuccessStatus: 200
+}
+app.use(cors(corsOptions));
 app.options("http://localhost:3000", cors())
 app.use(express.static("public")) //
 app.use(express.json()) //
@@ -23,7 +30,7 @@ app.use(methodOverride('_method')); //
 app.use(session({
   secret: "this is a random secret string",
   resave: false,
-  saveUninitialized: false 
+  saveUninitialized: false
 }))
 // taking json that is sent from the client,to the server and it is going to parse it 
 app.use(bodyParser.json())

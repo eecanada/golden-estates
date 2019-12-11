@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { SSL_OP_LEGACY_SERVER_CONNECT } from 'constants';
 
 class RegisterForm extends Component {
     constructor() {
@@ -8,7 +9,6 @@ class RegisterForm extends Component {
             username: '',
             email: '',
             password: '',
-            
         }
     }
 
@@ -18,7 +18,7 @@ class RegisterForm extends Component {
 
     handleSubmit = async (e) => {
         e.preventDefault();
-        const registerResponse = await fetch('/register', {
+        const registerResponse = await fetch('http://localhost:8000/users/register', {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(this.state),
@@ -27,10 +27,11 @@ class RegisterForm extends Component {
             }
         });
         const parsedResponse = await registerResponse.json();
-        if (parsedResponse.status.message === 'Success, user is registered') {
-            console.log('success login')
-            this.props.closeAndLogUser(parsedResponse.data)
-        }
+        console.log('user was created')
+        // if (parsedResponse.status.message === 'Success, user is registered') {
+        //     console.log('success login')
+        //     this.props.closeAndLogUser(parsedResponse.data)
+        // }
     }
     
     render() {

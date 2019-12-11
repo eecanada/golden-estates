@@ -21,7 +21,7 @@ class LoginForm extends Component {
 
     handleSubmit = async (e) => {
         e.preventDefault();
-        const loginResponse = await fetch(`/login`, {
+        const loginResponse = await fetch(`http://localhost:3000/login`, {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(this.state),
