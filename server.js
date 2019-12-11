@@ -4,30 +4,44 @@ const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
 const cors = require("cors")
-
-
+const methodOverride = require('method-override')
+const session = require('express-session')
 const usersController = require('./controllers/users')
 const homesController = require('./controllers/homes')
+
 // using process.env.PORT is when I deploy my app online ti will check to use if the is any environmental variable called PORT and if there isnt then it will go to PORT 8000
 const PORT = process.env.PORT || 8000
 
 require('./database/database')
 
 //middleware
-app.use(cors());
-app.options("http://localhost:3000", cors())
-app.use(express.static("public"))
-app.use(express.json())
 
+//RESEARCH corsOptions!!!!
+const corsOptions = {
+  origin: ['http://localhost:3000'],
+  credentials: true,
+  optionsSuccessStatus: 200
+}
+app.use(cors(corsOptions));
+app.options("http://localhost:3000", cors())
+app.use(express.static("public")) //
+app.use(express.json()) //
+app.use(methodOverride('_method')); //
+app.use(session({
+  secret: "this is a random secret string",
+  resave: false,
+  saveUninitialized: false
+}))
 // taking json that is sent from the client,to the server and it is going to parse it 
 app.use(bodyParser.json())
+// // telling express app to use this route 
+app.use('/users',usersController)
+app.use('/homes',homesController)
 
-
-// this doesnt have to match
+// this is my home page
 app.get('/', (req, res) => {
-  res.send('hit the home route!')
+  res.send()
 })
-
 
 app.post("/", cors(), async (req,res)=>{
 
@@ -57,11 +71,7 @@ app.post("/", cors(), async (req,res)=>{
      })
   })
 
-  // setting up my user route
- 
-  // // telling express app to use this route 
-  app.use('/users',usersController)
-  app.use('/homes',homesController)
+  
 
   app.listen(PORT, ()=>{
     console.log(`running on port ${PORT}`)
