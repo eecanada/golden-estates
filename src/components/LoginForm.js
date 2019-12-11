@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-
+import { withRouter } from 'react-router-dom';
 class LoginForm extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
 
         this.state = {
-            email: '',
+            username: '',
             password: '',
             showError: null
         };
@@ -13,15 +13,13 @@ class LoginForm extends Component {
     }
 
 
-    handleChange(field) {
-        return e => this.setState({
-            [field]: e.currentTarget.value
-        });
-    }
+    handleChange = (e) => {
+      this.setState({ [e.target.name] : e.target.value })
+  }
 
     handleSubmit = async (e) => {
         e.preventDefault();
-        const loginResponse = await fetch(`http://localhost:3000/login`, {
+        const loginResponse = await fetch(`http://localhost:8000/users/login`, {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(this.state),
@@ -31,8 +29,9 @@ class LoginForm extends Component {
         });
         const parsedResponse = await loginResponse.json();
         console.log(parsedResponse, " <- parsedResponse");
-        if (parsedResponse.message === 'user is logged in') {
-            this.props.closeAndLogUser(parsedResponse.data)
+        if (parsedResponse.email) {
+            console.log('you are in!!')
+            this.props.history.push('/home')
         } else {
             this.setState({
                 showError: true
@@ -47,19 +46,17 @@ class LoginForm extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <br />
-                        <label htmlFor="email">Email</label>
                         <input type="text"
-                            name="email"
-                            value={this.state.email}
-                            onChange={this.handleChange('email')}
-                            placeholder="Email"
+                            name="username"
+                            // value={this.state.username}
+                            onChange={this.handleChange}
+                            placeholder="Username"
                         />
                         <br />
-                        <label htmlFor="password">Password</label>
                         <input type="password"
                             name="password"
-                            value={this.state.password}
-                            onChange={this.handleChange('password')}
+                            // value={this.state.password}
+                            onChange={this.handleChange}
                             placeholder="Password"
                         />
                         <br />
@@ -74,4 +71,4 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm;
+export default withRouter(LoginForm);

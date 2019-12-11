@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { SSL_OP_LEGACY_SERVER_CONNECT } from 'constants';
-
+import { withRouter } from 'react-router-dom'
 class RegisterForm extends Component {
     constructor() {
         super();
@@ -13,7 +12,7 @@ class RegisterForm extends Component {
     }
 
     handleChange = (e) => {
-        this.setState({ [e.currentTarget.name]: e.currentTarget.value })
+        this.setState({ [e.currentTarget.name] : e.currentTarget.value })
     }
 
     handleSubmit = async (e) => {
@@ -27,6 +26,7 @@ class RegisterForm extends Component {
             }
         });
         const parsedResponse = await registerResponse.json();
+        console.log(parsedResponse)
         console.log('user was created')
         // if (parsedResponse.status.message === 'Success, user is registered') {
         //     console.log('success login')
@@ -73,4 +73,4 @@ class RegisterForm extends Component {
     }
 }
 
-export default RegisterForm;
+export default withRouter(RegisterForm);

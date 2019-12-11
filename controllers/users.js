@@ -100,20 +100,20 @@ router.post("/register", async (req, res) => {
 
 //login route 
 router.post("/login", async (req, res) => {
+  console.log(req.body)
   try{
       const foundUsername = await User.findOne({
-          username: req.body.loginUsername
+          username: req.body.username
       })
       if(foundUsername){
-          if(bcrypt.compareSync(req.body.loginPassword, foundUsername.password)){
-            req.session.firstName = foundUsername.firstName
+          if(bcrypt.compareSync(req.body.password, foundUsername.password)){
             req.session.email = foundUsername.email
             req.session.username = foundUsername.username
           }      
           res.json({ 
-            firstName: req.session.firstName,
             email: req.session.email,
             username: req.session.username,
+            
           })
       }
       else {
