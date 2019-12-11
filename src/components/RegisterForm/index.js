@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 class RegisterForm extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             username: '',
             email: '',
             password: '',
+            error: ''
         }
     }
 
@@ -28,10 +29,16 @@ class RegisterForm extends Component {
         const parsedResponse = await registerResponse.json();
         console.log(parsedResponse)
         console.log('user was created')
-        // if (parsedResponse.status.message === 'Success, user is registered') {
-        //     console.log('success login')
-        //     this.props.closeAndLogUser(parsedResponse.data)
-        // }
+        
+        if (parsedResponse.message === 'Success, user is registered') {
+            this.props.history.push('/login')
+            console.log('success login')
+            
+        } else {
+            this.setState({
+                error: "error"
+            })
+        }
     }
     
     render() {
@@ -62,7 +69,7 @@ class RegisterForm extends Component {
                             placeholder="Password"
                         />
                         <br />
-                       
+                       {this.state.error}
                         <br />
                         <input type="submit" value="Submit" />
                         

@@ -52,6 +52,7 @@ router.put('/:id', async (req,res)=>{
 })
 
 
+
 // registration route 
 router.post("/register", async (req, res) => {
   console.log("hit it mike")
@@ -87,7 +88,7 @@ router.post("/register", async (req, res) => {
                 email: req.session.email,
                 username: req.session.username,
                 userId: req.session.userId,
-                message: "Success.",
+                message: 'Success, user is registered'
             })
         }
     }
