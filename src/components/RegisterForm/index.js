@@ -18,27 +18,7 @@ class RegisterForm extends Component {
 
     handleSubmit = async (e) => {
         e.preventDefault();
-        const registerResponse = await fetch('http://localhost:8000/users/register', {
-            method: 'POST',
-            credentials: 'include',
-            body: JSON.stringify(this.state),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const parsedResponse = await registerResponse.json();
-        console.log(parsedResponse)
-        console.log('user was created')
-        
-        if (parsedResponse.message === 'Success, user is registered') {
-            this.props.history.push('/login')
-            console.log('success login')
-            
-        } else {
-            this.setState({
-                error: "error"
-            })
-        }
+        this.props.handleRegister(this.state)
     }
     
     render() {

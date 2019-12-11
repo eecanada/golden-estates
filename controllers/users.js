@@ -71,20 +71,16 @@ router.post("/register", async (req, res) => {
         const foundEmail = await User.findOne({
             email: req.body.email
         })
+        console.log(foundEmail, 'this is found email')
         const foundUsername = await User.findOne({
             username: req.body.username
         })
-        if(foundEmail){
-            res.json({
-                message: "Email already exists."
-            })
-        }
-        else if(foundUsername){
-            res.json({
-                message: "Username already exists."
-            })
-        }
-        else{
+        console.log(foundUsername, 'this is found username')
+
+        if(foundEmail || foundUsername){
+          res.json({data: currentUser, status: {code: "201", message: "already registed"}})
+        } else {
+          console.log('should make user')
             const userDbEntry = {}
             const password = req.body.password
             const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
@@ -92,6 +88,7 @@ router.post("/register", async (req, res) => {
             userDbEntry.email = req.body.email
             userDbEntry.password = passwordHash
             const newUser = await User.create(userDbEntry)
+            console.log(newUser);
             req.session.email = newUser.email
             req.session.username = newUser.username
             req.session.userId = newUser._id
