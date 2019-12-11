@@ -112,21 +112,20 @@ router.post("/register", async (req, res) => {
 
 //login route 
 router.post("/login", async (req, res) => {
-  console.log(req.body)
   try{
-      const foundUsername = await User.findOne({
+      const foundUser = await User.findOne({
           username: req.body.username
       })
-      if(foundUsername){
-          if(bcrypt.compareSync(req.body.password, foundUsername.password)){
-            req.session.email = foundUsername.email
-            req.session.username = foundUsername.username
-          }      
-          res.json({ 
-            email: req.session.email,
-            username: req.session.username,
-            
-          })
+      if(foundUser){
+          if(bcrypt.compareSync(req.body.password, foundUser.password)){
+            const currentUser = foundUser.toObject()
+            delete currentUser.password
+            res.json({data: currentUser, status: {code: "200", message: "successfully logged in"}})
+          } else {
+            res.json({
+              message: "Incorrect username or password."
+            })
+          }
       }
       else {
         res.json({

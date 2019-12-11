@@ -8,7 +8,6 @@ class EditUser extends Component {
             username: '',
             email: '',
             password: '',
-            error: ''
         }
     }
 
@@ -18,7 +17,7 @@ class EditUser extends Component {
 
     handleSubmit = async (e) => {
       e.preventDefault();
-      const registerResponse = await fetch('http://localhost:8000/users/:id/edit', {
+      const editResponse = await fetch(`http://localhost:8000/users/${this.props.currentUser._id}`, {
           method: 'PUT',
           credentials: 'include',
           body: JSON.stringify(this.state),
@@ -27,9 +26,9 @@ class EditUser extends Component {
           }
       });
       const parsedResponse = await editResponse.json();
-      console.log(parsedResponse)
+      console.log(parsedResponse, '<--parsed response')
       console.log('user had an edit')
-      this.props.history.push('/login')
+      this.props.history.push('/home')
   }
   
   render() {
@@ -63,16 +62,13 @@ class EditUser extends Component {
                      {this.state.error}
                       <br />
                       <input type="submit" value="Submit" />
-                      <button onClick={this.getUser}> Edit User</button>
+                      {/* <button onClick={this.handleSubmit}> Edit User</button> */}
                       
                   </div>
               </form>
           </div>
       );
   }
-
 }
-
-    
 
 export default withRouter(EditUser);
