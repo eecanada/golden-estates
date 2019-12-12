@@ -91,7 +91,7 @@ router.post("/register", async (req, res) => {
             console.log(newUser);
             req.session.email = newUser.email
             req.session.username = newUser.username
-            req.session.userId = newUser._id
+            req.session.userId = newUser.userId
             res.json({
                 email: req.session.email,
                 username: req.session.username,

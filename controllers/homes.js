@@ -12,9 +12,10 @@ router.post('/', async  (req, res) => {
     // const [findUser, createHome] = await ([foundUser,createdHome]);
     // findUser.homes.push(createHome)
     foundUser.homes.push(createdHome)
+    console.log(foundUser)
     // console.log('post for home listing', foundUser, createdHome);
     // await findUser.save();
-    await foundUser.save();
+    foundUser.save();
     res.json(createdHome)
   } catch (err){
     // console.log('errrorororor', err);
