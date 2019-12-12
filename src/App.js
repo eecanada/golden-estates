@@ -73,23 +73,25 @@ class App extends Component {
   
     createListing = async(credentials) => {
       const createResponse = await fetch('http://localhost:8000/homes', {
-        method: 'POST',
-        credentials: 'include',
-        body: JSON.stringify({ ...credentials, userId: this.state.currentUser.userId }),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
-    const parsedResponse = await createResponse.json();
-            if (parsedResponse) {
-                return parsedResponse
-                // this.props.history.push('/listing')
-            } else {
-                this.setState({
-                    showError: true,
-                })
-            }
-      } 
+          method: 'POST',
+          credentials: 'include',
+          body: JSON.stringify({ ...credentials, userId: this.state.currentUser._id }),
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      });
+      const parsedResponse = await createResponse.json();
+      console.log('createResponse', createResponse);
+      
+      if (parsedResponse) {
+          return parsedResponse
+          // this.props.history.push('/listing')
+      } else {
+          this.setState({
+              showError: true,
+          })
+      }
+    } 
 
   render () {
     return( 

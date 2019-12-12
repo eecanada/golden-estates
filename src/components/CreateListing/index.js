@@ -26,18 +26,17 @@ class CreateListing extends Component {
 
     handleSubmit = async (e) => {
         e.preventDefault();
-        this.props.createListing(this.state)
+        await this.props.createListing(this.state)
         this.doGetAllListing()
     }
 
     doGetAllListing = async () => {
         const userListings = await fetch(`http://localhost:8000/homes/${this.props.currentUser._id}`)
         const userListingsToJson = await userListings.json()
-        console.log(userListingsToJson.homes, "helo")
+        console.log(userListingsToJson.homes, "hello")
         this.setState({
             homes: userListingsToJson.homes || []
         })
-
     }
     
     render() {
