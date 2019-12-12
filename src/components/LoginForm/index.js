@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import {LogForm} from './style'
 
 class LoginForm extends Component {
     constructor(props) {
@@ -28,8 +29,9 @@ class LoginForm extends Component {
 
     render() {
         return (
+            <LogForm>
             <div>
-                <form onSubmit={this.handleSubmit} >
+                <form  className="form-group" onSubmit={this.handleSubmit} >
                     <div>
                         <br />
                         <input type="text"
@@ -53,6 +55,7 @@ class LoginForm extends Component {
                     </div>
                 </form>
             </div>
+        </LogForm>
         );
     }
 }

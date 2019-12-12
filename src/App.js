@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Route, Switch, withRouter} from 'react-router-dom'
 
+
 import HomeContainer from './components/HomeContainer'
 import HomePage from './components/HomePage'
 import NavBar from './components/NavBar';
@@ -72,10 +73,11 @@ class App extends Component {
     }
   
     createListing = async(credentials) => {
+      console.log(credentials, this.state.currentUser.userId, "THIS IS WHAT WE ARE PASSING IN")
       const createResponse = await fetch('http://localhost:8000/homes', {
           method: 'POST',
           credentials: 'include',
-          body: JSON.stringify({ ...credentials, userId: this.state.currentUser._id }),
+          body: JSON.stringify({ ...credentials, userId: this.state.currentUser.userId }),
           headers: {
               'Content-Type': 'application/json'
           }

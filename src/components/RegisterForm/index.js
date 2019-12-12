@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
+import {RegistrationForm} from './style'
+
 class RegisterForm extends Component {
     constructor(props) {
         super(props);
@@ -23,6 +25,7 @@ class RegisterForm extends Component {
     
     render() {
         return (
+        <RegistrationForm>
             <div >
                 <form onSubmit={this.handleSubmit}>
                     <div>
@@ -56,6 +59,7 @@ class RegisterForm extends Component {
                     </div>
                 </form>
             </div>
+        </RegistrationForm>
         );
     }
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
+import {ListForm} from './style'
 
 class CreateListing extends Component {
     constructor(props) {
@@ -28,20 +29,23 @@ class CreateListing extends Component {
         e.preventDefault();
         await this.props.createListing(this.state)
         this.doGetAllListing()
+        // RESEARCH //
+        // this.props.history.push('/listings')
     }
 
     doGetAllListing = async () => {
-        const userListings = await fetch(`http://localhost:8000/homes/${this.props.currentUser._id}`)
+        const userListings = await fetch(`http://localhost:8000/homes/${this.props.currentUser.userId}`)
         const userListingsToJson = await userListings.json()
-        console.log(userListingsToJson.homes, "hello")
+        console.log(userListingsToJson, "hello")
         this.setState({
-            homes: userListingsToJson.homes || []
+            homes: userListingsToJson.homes
         })
     }
     
     render() {
         console.log(this.state)
         return (
+        <ListForm>
             <div >
                 <form onSubmit={this.handleSubmit}>
                     <div>
@@ -71,13 +75,13 @@ class CreateListing extends Component {
                             name="salePrice"
                             value={this.state.salePrice}
                             onChange={this.handleChange}
-                            placeholder="salePrice"
+                            placeholder="Price"
                         />
                         <input type="text"
                             name="img"
                             value={this.state.img}
                             onChange={this.handleChange}
-                            placeholder="image upload"
+                            placeholder="Image Url"
                         />
                         <input type="text"
                             name="description"
@@ -90,15 +94,24 @@ class CreateListing extends Component {
                     </div>
                 </form>
                 <div>
-                    {this.state.homes.map(h => {
-                        return (
-                            <div>
-                                <p>{h.address}</p>
-                            </div>
-                        )
-                    })}
+                    {
+                        this.state.homes ?
+                        this.state.homes.map((home ,i) => {
+                            return (
+                                <div key={i}>
+                                    <p>{home.address}</p>
+                                    <p>{home.city}</p>
+                                    <p>{home.state}</p>
+                                    <p>{home.salePrice}</p>
+                                    <img src={home.img}/>
+                                    <p>{home.description}</p>
+                                </div>
+                            )
+                        }) : ''
+                    }
                 </div>
             </div>
+        </ListForm>
         );
     }
 }

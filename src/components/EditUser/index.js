@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
+import {EditForm} from './style'
+
 class EditUser extends Component {
     constructor(props) {
         super(props);
@@ -17,7 +19,7 @@ class EditUser extends Component {
 
     handleSubmit = async (e) => {
       e.preventDefault();
-      const editResponse = await fetch(`http://localhost:8000/users/${this.props.currentUser.userId}`, {
+      const editResponse = await fetch(`http://localhost:8000/users/${this.props.currentUser._id}`, {
           method: 'PUT',
           credentials: 'include',
           body: JSON.stringify(this.state),
@@ -34,8 +36,9 @@ class EditUser extends Component {
   
   render() {
       return (
+        <EditForm>
           <div >
-              <form onSubmit={this.handleSubmit}>
+              <form className="form-group" onSubmit={this.handleSubmit}>
                   <div>
                       <br />
                       <input type="text"
@@ -68,6 +71,7 @@ class EditUser extends Component {
                   </div>
               </form>
           </div>
+        </EditForm>
       );
   }
 }
