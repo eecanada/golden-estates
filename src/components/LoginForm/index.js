@@ -21,13 +21,15 @@ class LoginForm extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         this.props.handleLogin(this.state)
+       
+        
     }
 
 
     render() {
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} >
                     <div>
                         <br />
                         <input type="text"

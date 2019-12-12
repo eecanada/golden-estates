@@ -17,7 +17,7 @@ class EditUser extends Component {
 
     handleSubmit = async (e) => {
       e.preventDefault();
-      const editResponse = await fetch(`http://localhost:8000/users/${this.props.currentUser._id}`, {
+      const editResponse = await fetch(`http://localhost:8000/users/${this.props.currentUser.userId}`, {
           method: 'PUT',
           credentials: 'include',
           body: JSON.stringify(this.state),
@@ -28,6 +28,7 @@ class EditUser extends Component {
       const parsedResponse = await editResponse.json();
       console.log(parsedResponse, '<--parsed response')
       console.log('user had an edit')
+      this.props.setCurrentUser(parsedResponse)
       this.props.history.push('/home')
   }
   

@@ -117,7 +117,7 @@ router.post("/login", async (req, res) => {
           if(bcrypt.compareSync(req.body.password, foundUser.password)){
             const currentUser = foundUser.toObject()
             delete currentUser.password
-            res.json({data: currentUser, status: {code: "200", message: "successfully logged in"}})
+            res.json(currentUser)
           } else {
             res.json({
               message: "Incorrect username or password."

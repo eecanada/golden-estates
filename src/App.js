@@ -11,12 +11,21 @@ import './App.css';
 import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm'
 import EditUser from './components/EditUser'
+import CreateListing from './components/CreateListing';
+import ViewAllListings from './components/ViewAllListings';
 
 
 class App extends Component {
     state = {
-      currentUser: ""
+      currentUser: "",
+      registerUser: '',
+      home: []
     }
+
+
+  handleListing = async()=>{
+
+  }
 
   handleLogin = async(credentials) => {
     const loginResponse = await fetch(`http://localhost:8000/users/login`, {
@@ -28,16 +37,10 @@ class App extends Component {
             }
         });
         const parsedResponse = await loginResponse.json();
-        if (parsedResponse.data) {
             this.setState({
-              currentUser: parsedResponse.data
+              currentUser: parsedResponse
             })
-            this.props.history.push('/home')
-        } else {
-            this.setState({
-                showError: true
-            })
-        }
+
   }
 
   handleRegister = async(credentials) => {
@@ -50,9 +53,9 @@ class App extends Component {
       }
   });
   const parsedResponse = await registerResponse.json();
-          if (parsedResponse.data) {
+          if (parsedResponse.email) {
               this.setState({
-                currentUser: parsedResponse.data
+                currentUser: parsedResponse
               })
               this.props.history.push('/home')
           } else {
@@ -61,7 +64,32 @@ class App extends Component {
               })
           }
     }
+
+    setCurrentUser = (currentUser) => {
+      this.setState({
+        currentUser
+      })
+    }
   
+    createListing = async(credentials) => {
+      const createResponse = await fetch('http://localhost:8000/homes', {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify({ ...credentials, userId: this.state.currentUser.userId }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const parsedResponse = await createResponse.json();
+            if (parsedResponse) {
+                return parsedResponse
+                // this.props.history.push('/listing')
+            } else {
+                this.setState({
+                    showError: true,
+                })
+            }
+      } 
 
   render () {
     return( 
@@ -70,10 +98,12 @@ class App extends Component {
         
         <Switch>
           <Route exact path={ROUTES.HOME} component= {HomePage}/> 
+          <Route exact path={ROUTES.LISTINGS} component={()=> <CreateListing currentUser={this.state.currentUser} createListing={this.createListing}/>} />
           <Route exact path={ROUTES.SEARCH} component={HomeContainer} />
           <Route  exact path={ROUTES.SIGN_UP} component={() => <RegisterForm handleRegister={this.handleRegister}/>}/>
-          <Route exact path={ROUTES.LOGIN} component={() => <LoginForm handleLogin={this.handleLogin} />}/>
-          <Route exact path={ROUTES.EDIT} component={() => <EditUser currentUser={this.state.currentUser} />}/>
+          <Route exact path={ROUTES.LOGIN} component={() => <LoginForm setCurrentUser={this.setCurrentUser} handleLogin={this.handleLogin} />}/>
+          <Route exact path={ROUTES.EDIT} component={() => <EditUser setCurrentUser={this.setCurrentUser} currentUser={this.state.currentUser} />}/>
+          <Route exact path={ROUTES.ALL_LISTINGS} component={ViewAllListings}/>
         </Switch>
 
       </div>

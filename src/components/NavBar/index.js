@@ -19,6 +19,7 @@ const NavBar = () =>{
                     <NavLink to={ROUTES.LISTINGS}>Listings</NavLink> 
                     <NavLink to={ROUTES.SEARCH}>Search Homes</NavLink> 
                     <NavLink to={ROUTES.EDIT}>Edit User</NavLink> 
+                    <NavLink to={ROUTES.ALL_LISTINGS}>All Listings</NavLink> 
                 </div>
             </div>
         </div>

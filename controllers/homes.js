@@ -7,7 +7,6 @@ const User = require('../models/users')
 // create a home listing
 router.post('/', async  (req, res) => {
   try {
-    console.log(req.body)
     const createdHome = await Home.create(req.body)
     const foundUser = await User.findById(req.body.userId)
     const [findUser, createHome] = await ([foundUser,createdHome]);
@@ -43,10 +42,11 @@ router.put('/:id', async (req,res)=>{
 // this will let me select a user's home
 router.get('/:id', async (req,res)=>{
   try{
-    const foundUser = await User.findOne({'homes': req.params.id})
-    .populate({path: 'homes', match:{_id: req.params.id}})
-    console.log(foundUser)
-    res.json(foundUser)
+    console.log(req.params.id)
+    const foundUser = await User.findById(req.params.id)
+    .populate('homes')
+    console.log(foundUser, "i am the found user")
+    res.json({homes: foundUser.homes})
   } catch(err){
     res.send(err)
   }
