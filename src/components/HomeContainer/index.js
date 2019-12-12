@@ -1,5 +1,6 @@
 import React, {Component} from "react"
 import DisplayHome from "../DisplayHome"
+import {HomeForm} from './style'
 
 class HomeContainer extends Component{
   state = {
@@ -42,24 +43,26 @@ handleSubmit = async (e) => {
 render(){
   console.log(this.state)
   return(
-    <div>
-      <form onSubmit={this.handleSubmit}>
-        <input type="text" name="address" onChange={this.handleChange}/>
-        <input type="text" name="citystatezip" onChange={this.handleChange}/>
-        <input type="text" name="rentzestimate" onChange={this.handleChange}/>
-        <input type="submit" value="Submit"/>
-      </form>
-      
-      {
-        this.state.home
-          ?
-            <div>
-              <DisplayHome home={this.state.home} />
-            </div>
-          :
-            <div> FIND YOUR DREAM HOME </div>
-      }
-    </div>
+  <HomeForm>
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <input type="text" name="address" onChange={this.handleChange}/>
+          <input type="text" name="citystatezip" onChange={this.handleChange}/>
+          {/* <input type="text" name="rentzestimate" onChange={this.handleChange}/> */}
+          <input type="submit" value="Submit"/>
+        </form>
+        
+        {
+          this.state.home
+            ?
+              <div>
+                <DisplayHome home={this.state.home} />
+              </div>
+            :
+              <div> FIND YOUR DREAM HOME </div>
+        }
+      </div>
+    </HomeForm>
   )
 }
 }

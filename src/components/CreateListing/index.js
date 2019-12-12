@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
+import {ListForm} from './style'
 
 class CreateListing extends Component {
     constructor(props) {
@@ -42,6 +43,7 @@ class CreateListing extends Component {
     render() {
         console.log(this.state)
         return (
+        <ListForm>
             <div >
                 <form onSubmit={this.handleSubmit}>
                     <div>
@@ -71,13 +73,13 @@ class CreateListing extends Component {
                             name="salePrice"
                             value={this.state.salePrice}
                             onChange={this.handleChange}
-                            placeholder="salePrice"
+                            placeholder="Price"
                         />
                         <input type="text"
                             name="img"
                             value={this.state.img}
                             onChange={this.handleChange}
-                            placeholder="image upload"
+                            placeholder="Image Url"
                         />
                         <input type="text"
                             name="description"
@@ -104,6 +106,7 @@ class CreateListing extends Component {
                     })}
                 </div>
             </div>
+        </ListForm>
         );
     }
 }
