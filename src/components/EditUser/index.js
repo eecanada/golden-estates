@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
+import {EditForm} from './style'
+
 class EditUser extends Component {
     constructor(props) {
         super(props);
@@ -34,8 +36,9 @@ class EditUser extends Component {
   
   render() {
       return (
+        <EditForm>
           <div >
-              <form onSubmit={this.handleSubmit}>
+              <form className="form-group" onSubmit={this.handleSubmit}>
                   <div>
                       <br />
                       <input type="text"
@@ -68,6 +71,7 @@ class EditUser extends Component {
                   </div>
               </form>
           </div>
+        </EditForm>
       );
   }
 }
