@@ -42,6 +42,7 @@ router.delete('/:id', async (req,res)=>{
   }
 })
 
+// Edit route 
 router.put('/:id', async (req,res)=>{
   try{
     const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new:true});
@@ -51,6 +52,17 @@ router.put('/:id', async (req,res)=>{
   }
 })
 
+// // edit route 
+// router.get('/:id/edit', async (req,res)=>{
+//   try{
+//     const foundUser = await User.findById(req.params.id)
+//     res.json(foundUser)
+//   } catch (err){
+//     res.send(err)
+//   }
+// });
+
+
 
 // registration route 
 router.post("/register", async (req, res) => {
@@ -59,20 +71,16 @@ router.post("/register", async (req, res) => {
         const foundEmail = await User.findOne({
             email: req.body.email
         })
+        console.log(foundEmail, 'this is found email')
         const foundUsername = await User.findOne({
             username: req.body.username
         })
-        if(foundEmail){
-            res.json({
-                message: "Email already exists."
-            })
-        }
-        else if(foundUsername){
-            res.json({
-                message: "Username already exists."
-            })
-        }
-        else{
+        console.log(foundUsername, 'this is found username')
+
+        if(foundEmail || foundUsername){
+          res.json({data: currentUser, status: {code: "201", message: "already registed"}})
+        } else {
+          console.log('should make user')
             const userDbEntry = {}
             const password = req.body.password
             const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
@@ -80,6 +88,7 @@ router.post("/register", async (req, res) => {
             userDbEntry.email = req.body.email
             userDbEntry.password = passwordHash
             const newUser = await User.create(userDbEntry)
+            console.log(newUser);
             req.session.email = newUser.email
             req.session.username = newUser.username
             req.session.userId = newUser._id
@@ -87,7 +96,7 @@ router.post("/register", async (req, res) => {
                 email: req.session.email,
                 username: req.session.username,
                 userId: req.session.userId,
-                message: "Success.",
+                message: 'Success, user is registered'
             })
         }
     }
@@ -100,21 +109,20 @@ router.post("/register", async (req, res) => {
 
 //login route 
 router.post("/login", async (req, res) => {
-  console.log(req.body)
   try{
-      const foundUsername = await User.findOne({
+      const foundUser = await User.findOne({
           username: req.body.username
       })
-      if(foundUsername){
-          if(bcrypt.compareSync(req.body.password, foundUsername.password)){
-            req.session.email = foundUsername.email
-            req.session.username = foundUsername.username
-          }      
-          res.json({ 
-            email: req.session.email,
-            username: req.session.username,
-            
-          })
+      if(foundUser){
+          if(bcrypt.compareSync(req.body.password, foundUser.password)){
+            const currentUser = foundUser.toObject()
+            delete currentUser.password
+            res.json(currentUser)
+          } else {
+            res.json({
+              message: "Incorrect username or password."
+            })
+          }
       }
       else {
         res.json({

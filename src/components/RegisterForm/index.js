@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 class RegisterForm extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             username: '',
             email: '',
             password: '',
+            error: ''
         }
     }
 
@@ -17,21 +18,7 @@ class RegisterForm extends Component {
 
     handleSubmit = async (e) => {
         e.preventDefault();
-        const registerResponse = await fetch('http://localhost:8000/users/register', {
-            method: 'POST',
-            credentials: 'include',
-            body: JSON.stringify(this.state),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const parsedResponse = await registerResponse.json();
-        console.log(parsedResponse)
-        console.log('user was created')
-        // if (parsedResponse.status.message === 'Success, user is registered') {
-        //     console.log('success login')
-        //     this.props.closeAndLogUser(parsedResponse.data)
-        // }
+        this.props.handleRegister(this.state)
     }
     
     render() {
@@ -62,7 +49,7 @@ class RegisterForm extends Component {
                             placeholder="Password"
                         />
                         <br />
-                       
+                       {this.state.error}
                         <br />
                         <input type="submit" value="Submit" />
                         

@@ -7,14 +7,18 @@ const User = require('../models/users')
 // create a home listing
 router.post('/', async  (req, res) => {
   try {
-    console.log(req.body)
     const createdHome = await Home.create(req.body)
     const foundUser = await User.findById(req.body.userId)
-    const [findUser, createHome] = await ([foundUser,createdHome]);
-    findUser.homes.push(createHome)
-    await findUser.save();
+    // const [findUser, createHome] = await ([foundUser,createdHome]);
+    // findUser.homes.push(createHome)
+    foundUser.homes.push(createdHome)
+    // console.log('post for home listing', foundUser, createdHome);
+    // await findUser.save();
+    await foundUser.save();
     res.json(createdHome)
   } catch (err){
+    // console.log('errrorororor', err);
+    
     res.send(err)
   };
 });
@@ -43,10 +47,11 @@ router.put('/:id', async (req,res)=>{
 // this will let me select a user's home
 router.get('/:id', async (req,res)=>{
   try{
-    const foundUser = await User.findOne({'homes': req.params.id})
-    .populate({path: 'homes', match:{_id: req.params.id}})
-    console.log(foundUser)
-    res.json(foundUser)
+    console.log(req.params.id)
+    const foundUser = await User.findById(req.params.id)
+    .populate('homes')
+    console.log(foundUser, "i am the found user")
+    res.json({homes: foundUser.homes})
   } catch(err){
     res.send(err)
   }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+
 class LoginForm extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             username: '',
@@ -15,35 +16,20 @@ class LoginForm extends Component {
 
     handleChange = (e) => {
       this.setState({ [e.target.name] : e.target.value })
-  }
+    }
 
     handleSubmit = async (e) => {
         e.preventDefault();
-        const loginResponse = await fetch(`http://localhost:8000/users/login`, {
-            method: 'POST',
-            credentials: 'include',
-            body: JSON.stringify(this.state),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const parsedResponse = await loginResponse.json();
-        console.log(parsedResponse, " <- parsedResponse");
-        if (parsedResponse.email) {
-            console.log('you are in!!')
-            this.props.history.push('/home')
-        } else {
-            this.setState({
-                showError: true
-            })
-        }
+        this.props.handleLogin(this.state)
+       
+        
     }
 
 
     render() {
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} >
                     <div>
                         <br />
                         <input type="text"
