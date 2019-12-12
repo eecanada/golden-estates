@@ -90,15 +90,15 @@ class CreateListing extends Component {
                     </div>
                 </form>
                 <div>
-                    {this.state.homes.map((h ,i) => {
+                    {this.state.homes.map((home ,i) => {
                         return (
                             <div key={i}>
-                                <p>{h.address}</p>
-                                <p>{h.city}</p>
-                                <p>{h.state}</p>
-                                <p>{h.salePrice}</p>
-                                <img src={h.img}/>
-                                <p>{h.description}</p>
+                                <p>{home.address}</p>
+                                <p>{home.city}</p>
+                                <p>{home.state}</p>
+                                <p>{home.salePrice}</p>
+                                <img src={home.img}/>
+                                <p>{home.description}</p>
                             </div>
                         )
                     })}
