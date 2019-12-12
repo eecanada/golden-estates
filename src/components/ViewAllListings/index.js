@@ -11,7 +11,7 @@ class ViewAllListings extends Component {
           state: '',
           salePrice: '',
           img: '',
-          description: '',
+        //   description: '',
           homes: []
         }
     }
@@ -40,15 +40,15 @@ class ViewAllListings extends Component {
         return (
             <div >
                 <div>
-                {this.state.homes.map((home ,i) => {
+                 {this.state.homes.map((home ,i) => {
                         return (
                             <div key={i}>
-                                <p>{home.address}</p>
+                                <span>{home.address}</span>
                                 <p>{home.city}</p>
                                 <p>{home.state}</p>
                                 <p>{home.salePrice}</p>
-                                <img src={home.img}/>
                                 <p>{home.description}</p>
+                                <img src={home.img}/>
                             </div>
                         )
                     })}

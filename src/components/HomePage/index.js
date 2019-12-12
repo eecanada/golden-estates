@@ -10,7 +10,7 @@ const style={
     "backgroundSize": "cover",
     "backgroundImage": `url(${splashimage})`,
     'opacity' : '0.9',
-    'filter': 'alpha(opacity=50)',     
+    'filter': 'alpha(opacity=50)',  
 }
 
 class HomePage extends Component {
@@ -23,10 +23,11 @@ class HomePage extends Component {
     
     render() {
         return(
-            <div className='taglines' style={style}>
-            <h3> Golden Estates </h3>
-            <button> Find Your Dream Home </button>
-        </div>
+            <div  style={style}>
+                <h3> Golden Estates </h3>
+                
+                <button onClick="location.href='http://localhost:3000/alllistings'" type="button" class="btn btn-light"> Find Your Dream Home </button>
+            </div>
         )
     }
 }
