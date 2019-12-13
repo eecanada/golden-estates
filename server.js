@@ -8,8 +8,9 @@ const methodOverride = require('method-override')
 const session = require('express-session')
 const usersController = require('./controllers/users')
 const homesController = require('./controllers/homes')
+const path = require("path")
 
-// using process.env.PORT is when I deploy my app online ti will check to use if the is any environmental variable called PORT and if there isnt then it will go to PORT 8000
+// using process.env.PORT is when I deploy my app online to will check to use if the is any environmental variable called PORT and if there isnt then it will go to PORT 8000
 const PORT = process.env.PORT || 8000
 
 require('./database/database')
@@ -25,6 +26,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.options("http://localhost:3000", cors())
 app.use(express.static("public")) //
+app.use(express.static(path.join(__dirname,'build'))) //
 app.use(express.json()) //
 app.use(methodOverride('_method')); //
 app.use(session({
@@ -42,6 +44,8 @@ app.use('/homes',homesController)
 app.get('/', (req, res) => {
   res.send()
 })
+
+
 
 app.post("/", cors(), async (req,res)=>{
 
@@ -72,6 +76,9 @@ app.post("/", cors(), async (req,res)=>{
   })
 
   
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'))
+  })
 
   app.listen(PORT, ()=>{
     console.log(`running on port ${PORT}`)
