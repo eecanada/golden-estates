@@ -25,8 +25,7 @@ const corsOptions = {
 }
 app.use(cors(corsOptions));
 app.options("http://localhost:3000", cors())
-app.use(express.static("public")) //
-app.use(express.static(path.join(__dirname,'build'))) //
+app.use(express.static(path.join(__dirname, 'build'))) //
 app.use(express.json()) //
 app.use(methodOverride('_method')); //
 app.use(session({

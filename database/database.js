@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 
 // location of where my mongodb server is going to be located at 
-const connectionString = 'mongodb://localhost/golden-estates';
+const connectionString = process.env.MONGODB_URI;
 
 // connect to a local database mongodb, and these other lines of code are options so that mongoose does not complain about depicated warnings 
 mongoose.connect(connectionString, { useNewUrlParser: true,
