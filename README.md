@@ -1,68 +1,36 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Golden-Estates
 
-## Available Scripts
 
-In the project directory, you can run:
+<img width="1440" alt="Screen Shot 2020-01-07 at 8 53 44 PM" src="https://user-images.githubusercontent.com/53157290/71951423-dca35f00-318f-11ea-883d-9aae19eeaeab.png">
 
-### `npm start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+# Description 
 
-### `npm test`
+* A CRUD luxury real estate application that allows users to create listings of homes they are selling. Users are also able to search through homes using the Zillow API.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Technologies Used
+* JavaScript
+* CSS3
+* HTML5
+* MongoDB(Mongoose)
+* Node.js
+* Express
+* React
+* Zillow API
+* Bootstrap
+* Styled-Components
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Getting Started 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+[Click to visit page](https://golden-estates.herokuapp.com/home)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* The user is able to register and post listing of homes they are selling. They upload the address of the home along with the price, picture, and description of the home.
+* Users can view all the listing any users have posted for sale clicking on the "All Listing" link
+* If a user wants to search homes through the Zillow API, they can just click on the "Search Homes" link and submit the address of the home they want more details on
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+# Next Steps
+* Make app mobile responsive
+* Allow Zillow API to return more search results
+* User should be able to delete posting
