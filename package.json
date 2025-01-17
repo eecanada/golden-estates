@@ -16,7 +16,7 @@
     "http-proxy-middleware": "^0.20.0",
     "jquery": "^3.4.1",
     "method-override": "^3.0.0",
-    "mongoose": "^5.7.14",
+    "mongoose": "^8.9.5",
     "node-zillow": "^2.0.0",
     "popper.js": "^1.16.0",
     "react": "^16.12.0",
